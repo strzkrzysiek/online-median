@@ -104,11 +104,11 @@ inline int Heap<MAX>::compare(int lhs, int rhs) const
 }
 
 template <Heap_order ORDER>
-inline void Heap<ORDER>::push_upwards(int idx)
+inline void Heap<ORDER>::push_upwards(unsigned idx)
 {
     while (idx > 0)
     {
-        int parent = HEAP_PARENT(idx);
+        unsigned parent = HEAP_PARENT(idx);
         if (compare(data[parent], data[idx]) < 0)
             break;
 
@@ -118,17 +118,17 @@ inline void Heap<ORDER>::push_upwards(int idx)
 }
 
 template <Heap_order ORDER>
-inline void Heap<ORDER>::push_downwards(int idx)
+inline void Heap<ORDER>::push_downwards(unsigned idx)
 {
     while (true)
     {
-        int swap_candidate = idx;
+        unsigned swap_candidate = idx;
 
-        int left_child = HEAP_LCHILD(idx);
+        unsigned left_child = HEAP_LCHILD(idx);
         if (left_child < size && compare(data[left_child], data[swap_candidate]) < 0)
             swap_candidate = left_child;
 
-        int right_child = left_child + 1;
+        unsigned right_child = left_child + 1;
         if (right_child < size && compare(data[right_child], data[swap_candidate]) < 0)
             swap_candidate = right_child;
 

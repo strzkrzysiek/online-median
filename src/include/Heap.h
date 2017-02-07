@@ -33,8 +33,8 @@ public:
 private:
     void    extend();
     int     compare(int lhs, int rhs) const;
-    void    push_upwards(int idx);
-    void    push_downwards(int idx);
+    void    push_upwards(unsigned idx);
+    void    push_downwards(unsigned idx);
 };
 
 typedef Heap<MIN> Min_heap;
