@@ -5,12 +5,14 @@
 #include "Heap.h"
 #include <climits>
 
+#define HEAP_TEST_SIZE 1000
+
 TEST(Heap_test, Ascending_sort)
 {
     Min_heap heap;
 
-    for (int i=0; i<100; i++)
-        heap.insert(rand() % 200);
+    for (int i=0; i<HEAP_TEST_SIZE; i++)
+        heap.insert(rand() % (HEAP_TEST_SIZE * 2));
 
     int current_min = INT_MIN;
 
@@ -27,8 +29,8 @@ TEST(Heap_test, Descending_sort)
 {
     Max_heap heap;
 
-    for (int i=0; i<100; i++)
-        heap.insert(rand() % 200);
+    for (int i=0; i<HEAP_TEST_SIZE; i++)
+        heap.insert(rand() % (HEAP_TEST_SIZE * 2));
 
     int current_max = INT_MAX;
 

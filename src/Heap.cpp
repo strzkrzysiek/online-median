@@ -51,10 +51,11 @@ void Heap<ORDER>::delete_minimal()
     size--;
     remaining_size++;
 
+    HEAP_SWAP(data[size], data[0]);
+
     if (size < 2)
         return;
 
-    HEAP_SWAP(data[size], data[0]);
     push_downwards(0);
 }
 

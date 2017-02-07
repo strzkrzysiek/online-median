@@ -1,4 +1,4 @@
-#include <cstdio>
+#include <cstdlib>
 #include <ctime>
 #include "tests/tests_all.h"
 
