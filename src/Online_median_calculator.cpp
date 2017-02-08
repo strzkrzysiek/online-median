@@ -1,11 +1,6 @@
 #include "Online_median_calculator.h"
 #include <cassert>
 
-Online_median_calculator::Online_median_calculator()
-:median(0)
-{
-}
-
 void Online_median_calculator::add_value(int val)
 {
     if (max_heap.is_empty())
@@ -73,7 +68,7 @@ float Online_median_calculator::get_median() const
 {
     if (max_heap.is_empty())
     {
-        throw Empty_set_exception();
+        throw Online_median_empty_exception();
     }
 
     return median;

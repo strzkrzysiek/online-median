@@ -3,7 +3,7 @@
 
 #include "Heap.h"
 
-class Empty_set_exception { };
+class Online_median_empty_exception { };
 
 class Online_median_calculator
 {
@@ -13,8 +13,6 @@ private:
     float median;
 
 public:
-    Online_median_calculator();
-
     void add_value(int val);
     float get_median() const;
 };
