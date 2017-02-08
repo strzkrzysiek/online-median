@@ -1,11 +1,11 @@
-#ifndef __ONLINE_MEDIAN_CALCULATOR_H__
-#define __ONLINE_MEDIAN_CALCULATOR_H__
+#ifndef __HEAP_MEDIAN_CALCULATOR_H__
+#define __HEAP_MEDIAN_CALCULATOR_H__
 
 #include "Heap.h"
 
-class Online_median_empty_exception { };
+class Heap_median_empty_exception { };
 
-class Online_median_calculator
+class Heap_median_calculator
 {
 private:
     Min_heap min_heap;
