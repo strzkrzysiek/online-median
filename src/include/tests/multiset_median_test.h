@@ -6,7 +6,11 @@
 #include <algorithm>
 #include "Multiset_median_calculator.h"
 
-#define MULTISET_MEDIAN_TEST_SIZE 1000
+#ifdef GLOBAL_TEST_SIZE
+# define MULTISET_MEDIAN_TEST_SIZE GLOBAL_TEST_SIZE
+#else
+# define MULTISET_MEDIAN_TEST_SIZE 1000
+#endif
 
 TEST(Multiset_median_test, Random)
 {

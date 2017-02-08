@@ -25,7 +25,9 @@ public:
     ~Heap();
 
     void    insert(int num);
+    void    insert_minimal(int num);
     void    delete_minimal();
+    void    delete_minimal_and_insert(int num);
     int     get_minimal() const;
     size_t  get_size() const;
     bool    is_empty() const;

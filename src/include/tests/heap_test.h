@@ -5,7 +5,11 @@
 #include "Heap.h"
 #include <climits>
 
-#define HEAP_TEST_SIZE 1000
+#ifdef GLOBAL_TEST_SIZE
+# define HEAP_TEST_SIZE GLOBAL_TEST_SIZE
+#else
+# define HEAP_TEST_SIZE 1000
+#endif
 
 TEST(Heap_test, Ascending_sort)
 {

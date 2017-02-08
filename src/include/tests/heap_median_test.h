@@ -6,7 +6,11 @@
 #include <algorithm>
 #include "Heap_median_calculator.h"
 
-#define HEAP_MEDIAN_TEST_SIZE 1000
+#ifdef GLOBAL_TEST_SIZE
+# define HEAP_MEDIAN_TEST_SIZE GLOBAL_TEST_SIZE
+#else
+# define HEAP_MEDIAN_TEST_SIZE 1000
+#endif
 
 TEST(Heap_median_test, Random)
 {

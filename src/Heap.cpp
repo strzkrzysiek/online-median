@@ -43,6 +43,27 @@ void Heap<ORDER>::insert(int num)
 }
 
 template <Heap_order ORDER>
+void Heap<ORDER>::insert_minimal(int num)
+{
+    assert(size == 0 || compare(data[0], num) >= 0);
+
+    if (remaining_size == 0)
+        extend();
+
+    int idx = size;
+    while (idx)
+    {
+        int parent = HEAP_PARENT(idx);
+        data[idx] = data[parent];
+        idx = parent;
+    }
+    data[0] = num;
+
+    size++;
+    remaining_size--;
+}
+
+template <Heap_order ORDER>
 void Heap<ORDER>::delete_minimal()
 {
     if (size == 0)
@@ -56,6 +77,16 @@ void Heap<ORDER>::delete_minimal()
     if (size < 2)
         return;
 
+    push_downwards(0);
+}
+
+template <Heap_order ORDER>
+void Heap<ORDER>::delete_minimal_and_insert(int num)
+{
+    if (size == 0)
+        throw Empty_heap_exception();
+
+    data[0] = num;
     push_downwards(0);
 }
 

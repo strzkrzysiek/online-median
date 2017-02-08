@@ -21,10 +21,9 @@ void Heap_median_calculator::add_value(int val)
         }
         else
         {
-            min_heap.insert(val);
             int transfer_value = min_heap.get_minimal();
-            min_heap.delete_minimal();
-            max_heap.insert(transfer_value);
+            min_heap.delete_minimal_and_insert(val);
+            max_heap.insert_minimal(transfer_value);
             median = (min_heap.get_minimal() + max_heap.get_minimal()) / 2.0f;
         }
         break;
@@ -37,10 +36,9 @@ void Heap_median_calculator::add_value(int val)
         }
         else
         {
-            max_heap.insert(val);
             int transfer_value = max_heap.get_minimal();
-            max_heap.delete_minimal();
-            min_heap.insert(transfer_value);
+            max_heap.delete_minimal_and_insert(val);
+            min_heap.insert_minimal(transfer_value);
             median = (min_heap.get_minimal() + max_heap.get_minimal()) / 2.0f;
         }
         break;
