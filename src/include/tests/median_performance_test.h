@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 
-#define PERFORMANCE_TEST_SIZE 1000000
+#define PERFORMANCE_TEST_SIZE 10000000
 
 class Median_performance_test : public testing::Test
 {

@@ -3,6 +3,8 @@
 
 #include <cstdlib>
 
+#define HEAP_SUBMINIMAL_BUFFER_MAX_SIZE 5
+
 class Empty_heap_exception { };
 
 enum Heap_order
@@ -19,6 +21,9 @@ private:
     size_t remaining_size;
 
     int * data;
+
+    int subminimal_buffer[HEAP_SUBMINIMAL_BUFFER_MAX_SIZE];
+    size_t subminimal_buffer_size;
 
 public:
     Heap();

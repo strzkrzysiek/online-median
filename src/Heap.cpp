@@ -13,6 +13,7 @@ template <Heap_order ORDER>
 Heap<ORDER>::Heap()
 :size(0)
 ,remaining_size(HEAP_INITIAL_SIZE)
+,subminimal_buffer_size(0)
 {
     data = (int *)malloc(sizeof(int) * HEAP_INITIAL_SIZE);
 };
@@ -36,7 +37,7 @@ void Heap<ORDER>::insert(int num)
     size++;
     remaining_size--;  
 
-    if (size < 2)
+    if (size + subminimal_buffer_size < 2)
         return;
 
     push_upwards(size - 1);  
@@ -45,7 +46,17 @@ void Heap<ORDER>::insert(int num)
 template <Heap_order ORDER>
 void Heap<ORDER>::insert_minimal(int num)
 {
-    assert(size == 0 || compare(data[0], num) >= 0);
+    assert(size == 0 ||
+           compare((subminimal_buffer_size
+                    ? subminimal_buffer[subminimal_buffer_size - 1]
+                    : data[0]),
+                   num) >= 0);
+
+    if (subminimal_buffer_size < HEAP_SUBMINIMAL_BUFFER_MAX_SIZE)
+    {
+        subminimal_buffer[subminimal_buffer_size++] = num;
+        return;
+    }
 
     if (remaining_size == 0)
         extend();
@@ -57,7 +68,11 @@ void Heap<ORDER>::insert_minimal(int num)
         data[idx] = data[parent];
         idx = parent;
     }
-    data[0] = num;
+    data[0] = subminimal_buffer[0];
+    for (unsigned i=1; i<HEAP_SUBMINIMAL_BUFFER_MAX_SIZE; i++)
+        subminimal_buffer[i-1] = subminimal_buffer[i];
+    
+    subminimal_buffer[HEAP_SUBMINIMAL_BUFFER_MAX_SIZE - 1] = num;
 
     size++;
     remaining_size--;
@@ -66,8 +81,14 @@ void Heap<ORDER>::insert_minimal(int num)
 template <Heap_order ORDER>
 void Heap<ORDER>::delete_minimal()
 {
-    if (size == 0)
+    if (size == 0 && subminimal_buffer_size == 0)
         throw Empty_heap_exception();
+
+    if (subminimal_buffer_size)
+    {
+        subminimal_buffer_size--;
+        return;
+    }
 
     size--;
     remaining_size++;
@@ -83,8 +104,15 @@ void Heap<ORDER>::delete_minimal()
 template <Heap_order ORDER>
 void Heap<ORDER>::delete_minimal_and_insert(int num)
 {
-    if (size == 0)
+    if (size == 0 && subminimal_buffer_size == 0)
         throw Empty_heap_exception();
+
+    if (subminimal_buffer_size)
+    {
+        subminimal_buffer_size--;
+        insert(num);
+        return;
+    }
 
     data[0] = num;
     push_downwards(0);
@@ -93,8 +121,11 @@ void Heap<ORDER>::delete_minimal_and_insert(int num)
 template <Heap_order ORDER>
 int Heap<ORDER>::get_minimal() const
 {
-    if (size == 0)
+    if (size == 0 && subminimal_buffer_size == 0)
         throw Empty_heap_exception();
+
+    if (subminimal_buffer_size)
+        return subminimal_buffer[subminimal_buffer_size - 1];
 
     return data[0];
 }
@@ -102,13 +133,13 @@ int Heap<ORDER>::get_minimal() const
 template <Heap_order ORDER>
 size_t Heap<ORDER>::get_size() const
 {
-    return size;
+    return size + subminimal_buffer_size;
 }
 
 template <Heap_order ORDER>
 bool Heap<ORDER>::is_empty() const
 {
-    return (size == 0);
+    return (size == 0 && subminimal_buffer_size == 0);
 }
 
 template <Heap_order ORDER>
@@ -142,10 +173,22 @@ inline void Heap<ORDER>::push_upwards(unsigned idx)
     {
         unsigned parent = HEAP_PARENT(idx);
         if (compare(data[parent], data[idx]) < 0)
-            break;
+            return;
 
         HEAP_SWAP(data[parent], data[idx]);
         idx = parent;
+    }
+
+    if (subminimal_buffer_size &&
+        compare(subminimal_buffer[0], data[0]) >= 0)
+    {
+        HEAP_SWAP(subminimal_buffer[0], data[0]);
+        for (unsigned i=1; i<subminimal_buffer_size; i++)
+        {
+            if (compare(subminimal_buffer[i], subminimal_buffer[i-1]) < 0)
+                return;
+            HEAP_SWAP(subminimal_buffer[i], subminimal_buffer[i-1]);
+        }
     }
 }
 

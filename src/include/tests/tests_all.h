@@ -1,4 +1,4 @@
-#define GLOBAL_TEST_SIZE 1000
+#define GLOBAL_TEST_SIZE 200
 
 #include "heap_test.h"
 #include "heap_median_test.h"

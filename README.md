@@ -35,15 +35,19 @@ If the sizes are unequal two options are possible. Either we choose to place it 
 
 Since operations that are done on the heaps are very special, additional specialized methods (`insert_minimal(int)` and `delete_minimal_and_insert(int)`) were implemented to speed up the process.
 
+Additionally, every heap contains a small fixed-sized buffer to store several smallest/biggest values. Let's call them subminimal buffers. This makes `insert_minimal(int)` and `delete_minimal_and_insert(int)` operations to run in constant time if the buffer is not full or not empty, respectively, and thus, most of the rebalance operations constant time.
+
 ### Complexity
 
 During each insertion depending on the need to rebalance two cases are possible:
-* no rebalance is needed - only one insertion is performed which has amortized complexity of O(n),
-* otherwise - delete_minimal_and_insert(int) and insert_minimal(int) methods are invoked; the first one has complexity of O(nlogn) as it requires the new element to traverse the heap starting from the root; same with inserting_minimal as it traverses the heap from the bottom to the very top.
+* no rebalance is needed - only one insertion is performed which has amortized complexity of O(1),
+* otherwise - `delete_minimal_and_insert(int)` and `insert_minimal(int)` methods are invoked; the first one has complexity of O(logn) if the subminimal buffer is empty as it requires the new element to traverse the heap starting from the root and complexity of O(1) if the buffer is non-empty; same with inserting_minimal - O(logn) if the buffer is full as it traverses the heap from the bottom to the very top and O(1) if the buffer is not full.
 
-Having a uniformly random input the first case happens in 75% of operations while the second on in 25%. However, in the worst case only the second option is used (for sorted input) which also results in O(nlogn) operations. In the best case (having an input that keeps the heaps balanced all the time) the complexity is O(n).
+Having a uniformly random input and not having the subminimal buffers, the first case happens in 75% of operations while the second on in 25%. As already said, the latter one can be done either in O(1) or O(logn) depending on the state of the buffers. The exact calculations depend on the distribution of the input, but assuming the uniform one we can say that every state of the buffer is equally possible and the possibility of an operation taking O(logn) time is 25% times one over the size of the buffer.
 
-## Algorithm using STL multisets
+In worst case only second option is used and the buffer quickly overfills (for sorted input) and it results in total of O(nlogn) operations. In an average case the calculation is much faster but still in O(nlogn) time. In the best case (having an input that keeps the heaps moreless balanced) the complexity is O(n).
+
+## Algorithm using STL multisets `Multiset_median_calculator`
 
 ### Description
 
