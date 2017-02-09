@@ -1,5 +1,5 @@
-#ifndef __TESTS_H__
-#define __TESTS_H__
+#ifndef __HEAP_TEST_H__
+#define __HEAP_TEST_H__
 
 #include "gtest/gtest.h"
 #include "Heap.h"
