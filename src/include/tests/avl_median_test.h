@@ -1,29 +1,29 @@
-#ifndef __MULTISET_MEDIAN_TEST_H__
-#define __MULTISET_MEDIAN_TEST_H__
+#ifndef __AVL_MEDIAN_TEST_H__
+#define __AVL_MEDIAN_TEST_H__
 
 #include "gtest/gtest.h"
 #include <vector>
 #include <algorithm>
-#include "Multiset_median_calculator.h"
+#include "AVL_median_calculator.h"
 
 #ifdef GLOBAL_TEST_SIZE
-# define MULTISET_MEDIAN_TEST_SIZE GLOBAL_TEST_SIZE
+# define AVL_MEDIAN_TEST_SIZE GLOBAL_TEST_SIZE
 #else
-# define MULTISET_MEDIAN_TEST_SIZE 1000
+# define AVL_MEDIAN_TEST_SIZE 1000
 #endif
 
-TEST(Multiset_median_test, Random)
+TEST(AVL_median_test, Random)
 {
     std::vector<int> sample_data;
-    sample_data.reserve(MULTISET_MEDIAN_TEST_SIZE);
-    for (int i=0; i<MULTISET_MEDIAN_TEST_SIZE; i++)
-        sample_data.push_back(rand() % (MULTISET_MEDIAN_TEST_SIZE * 10));
+    sample_data.reserve(AVL_MEDIAN_TEST_SIZE);
+    for (int i=0; i<AVL_MEDIAN_TEST_SIZE; i++)
+        sample_data.push_back(rand() % (AVL_MEDIAN_TEST_SIZE * 10));
 
     std::vector<float> medians;
     std::vector<int> sorted_data(sample_data);
-    medians.reserve(MULTISET_MEDIAN_TEST_SIZE);
+    medians.reserve(AVL_MEDIAN_TEST_SIZE);
 
-    for (int i=1; i<=MULTISET_MEDIAN_TEST_SIZE; i++)
+    for (int i=1; i<=AVL_MEDIAN_TEST_SIZE; i++)
     {
         std::sort(sorted_data.begin(), sorted_data.begin() + i);
         if (i % 2 == 0)
@@ -37,28 +37,28 @@ TEST(Multiset_median_test, Random)
         }
     }
 
-    Multiset_median_calculator calculator;
+    AVL_median_calculator calculator;
 
-    for (int i=0; i<MULTISET_MEDIAN_TEST_SIZE; i++)
+    for (int i=0; i<AVL_MEDIAN_TEST_SIZE; i++)
     {
         calculator.add_value(sample_data[i]);
         ASSERT_EQ(calculator.get_median(), medians[i]);
     }
 }
 
-TEST(Multiset_median_test, Ascending)
+TEST(AVL_median_test, Ascending)
 {
     std::vector<int> sorted_data;
-    sorted_data.reserve(MULTISET_MEDIAN_TEST_SIZE);
-    for (int i=0; i<MULTISET_MEDIAN_TEST_SIZE; i++)
-        sorted_data.push_back(rand() % (MULTISET_MEDIAN_TEST_SIZE * 10));
+    sorted_data.reserve(AVL_MEDIAN_TEST_SIZE);
+    for (int i=0; i<AVL_MEDIAN_TEST_SIZE; i++)
+        sorted_data.push_back(rand() % (AVL_MEDIAN_TEST_SIZE * 10));
 
     std::sort(sorted_data.begin(), sorted_data.end());
 
     std::vector<float> medians;
-    medians.reserve(MULTISET_MEDIAN_TEST_SIZE);
+    medians.reserve(AVL_MEDIAN_TEST_SIZE);
 
-    for (int i=1; i<=MULTISET_MEDIAN_TEST_SIZE; i++)
+    for (int i=1; i<=AVL_MEDIAN_TEST_SIZE; i++)
     {
         if (i % 2 == 0)
         {
@@ -71,28 +71,28 @@ TEST(Multiset_median_test, Ascending)
         }
     }
 
-    Multiset_median_calculator calculator;
+    AVL_median_calculator calculator;
 
-    for (int i=0; i<MULTISET_MEDIAN_TEST_SIZE; i++)
+    for (int i=0; i<AVL_MEDIAN_TEST_SIZE; i++)
     {
         calculator.add_value(sorted_data[i]);
         ASSERT_EQ(calculator.get_median(), medians[i]);
     }
 }
 
-TEST(Multiset_median_test, Descending)
+TEST(AVL_median_test, Descending)
 {
     std::vector<int> sorted_data;
-    sorted_data.reserve(MULTISET_MEDIAN_TEST_SIZE);
-    for (int i=0; i<MULTISET_MEDIAN_TEST_SIZE; i++)
-        sorted_data.push_back(rand() % (MULTISET_MEDIAN_TEST_SIZE * 10));
+    sorted_data.reserve(AVL_MEDIAN_TEST_SIZE);
+    for (int i=0; i<AVL_MEDIAN_TEST_SIZE; i++)
+        sorted_data.push_back(rand() % (AVL_MEDIAN_TEST_SIZE * 10));
 
     std::sort(sorted_data.rbegin(), sorted_data.rend());
 
     std::vector<float> medians;
-    medians.reserve(MULTISET_MEDIAN_TEST_SIZE);
+    medians.reserve(AVL_MEDIAN_TEST_SIZE);
 
-    for (int i=1; i<=MULTISET_MEDIAN_TEST_SIZE; i++)
+    for (int i=1; i<=AVL_MEDIAN_TEST_SIZE; i++)
     {
         if (i % 2 == 0)
         {
@@ -105,9 +105,9 @@ TEST(Multiset_median_test, Descending)
         }
     }
 
-    Multiset_median_calculator calculator;
+    AVL_median_calculator calculator;
 
-    for (int i=0; i<MULTISET_MEDIAN_TEST_SIZE; i++)
+    for (int i=0; i<AVL_MEDIAN_TEST_SIZE; i++)
     {
         calculator.add_value(sorted_data[i]);
         ASSERT_EQ(calculator.get_median(), medians[i]);

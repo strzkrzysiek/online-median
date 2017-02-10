@@ -3,7 +3,7 @@
 
 #include "gtest/gtest.h"
 #include "Heap_median_calculator.h"
-#include "Multiset_median_calculator.h"
+#include "AVL_median_calculator.h"
 #include <vector>
 #include <algorithm>
 
@@ -85,9 +85,9 @@ TEST_F(Median_performance_test, Heap_random)
 }
 
 
-TEST_F(Median_performance_test, Multiset_random)
+TEST_F(Median_performance_test, AVL_random)
 {
-    Multiset_median_calculator calculator;
+    AVL_median_calculator calculator;
 
     for (int i=0; i<PERFORMANCE_TEST_SIZE; i++)
     {
@@ -107,9 +107,9 @@ TEST_F(Median_performance_test, Heap_ascending)
     }
 }
 
-TEST_F(Median_performance_test, Multiset_ascending)
+TEST_F(Median_performance_test, AVL_ascending)
 {
-    Multiset_median_calculator calculator;
+    AVL_median_calculator calculator;
 
     for (int i=0; i<PERFORMANCE_TEST_SIZE; i++)
     {
@@ -129,9 +129,9 @@ TEST_F(Median_performance_test, Heap_descending)
     }
 }
 
-TEST_F(Median_performance_test, Multiset_descending)
+TEST_F(Median_performance_test, AVL_descending)
 {
-    Multiset_median_calculator calculator;
+    AVL_median_calculator calculator;
 
     for (int i=0; i<PERFORMANCE_TEST_SIZE; i++)
     {

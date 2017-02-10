@@ -17,10 +17,10 @@ onlinemedian:
 	g++ -c $(SRC)/Heap.cpp -o $(BIN)/Heap.o $(MAX_SPEED_FLAGS)
 	g++ -c $(SRC)/AVL_tree.cpp -o $(BIN)/AVL_tree.o $(MAX_SPEED_FLAGS)
 	g++ -c $(SRC)/Heap_median_calculator.cpp -o $(BIN)/Heap_median_calculator.o $(MAX_SPEED_FLAGS)
-	g++ -c $(SRC)/Multiset_median_calculator.cpp -o $(BIN)/Multiset_median_calculator.o $(MAX_SPEED_FLAGS)
+	g++ -c $(SRC)/AVL_median_calculator.cpp -o $(BIN)/AVL_median_calculator.o $(MAX_SPEED_FLAGS)
 	g++ -c $(SRC)/main.cpp -o $(BIN)/main.o $(MAX_SPEED_FLAGS)
 	g++ -o onlinemedian $(BIN)/Heap.o $(BIN)/AVL_tree.o \
-	$(BIN)/Heap_median_calculator.o $(BIN)/Multiset_median_calculator.o \
+	$(BIN)/Heap_median_calculator.o $(BIN)/AVL_median_calculator.o \
 	$(BIN)/main.o  $(LDFLAGS)
 
 onlinemedian_debug:
@@ -28,10 +28,10 @@ onlinemedian_debug:
 	g++ -c $(SRC)/Heap.cpp -o $(BIN)/Heap.o $(DEBUG_FLAGS)
 	g++ -c $(SRC)/AVL_tree.cpp -o $(BIN)/AVL_tree.o $(DEBUG_FLAGS)
 	g++ -c $(SRC)/Heap_median_calculator.cpp -o $(BIN)/Heap_median_calculator.o $(DEBUG_FLAGS)
-	g++ -c $(SRC)/Multiset_median_calculator.cpp -o $(BIN)/Multiset_median_calculator.o $(DEBUG_FLAGS)
+	g++ -c $(SRC)/AVL_median_calculator.cpp -o $(BIN)/AVL_median_calculator.o $(DEBUG_FLAGS)
 	g++ -c $(SRC)/main.cpp -o $(BIN)/main.o $(DEBUG_FLAGS)
 	g++ -o onlinemedian $(BIN)/Heap.o $(BIN)/AVL_tree.o \
-	$(BIN)/Heap_median_calculator.o $(BIN)/Multiset_median_calculator.o \
+	$(BIN)/Heap_median_calculator.o $(BIN)/AVL_median_calculator.o \
 	$(BIN)/main.o  $(LDFLAGS)
 
 gtest:

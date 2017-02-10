@@ -41,18 +41,22 @@ Additionally, every heap contains a small fixed-sized buffer to store several sm
 
 During each insertion depending on the need to rebalance two cases are possible:
 * no rebalance is needed - only one insertion is performed which has amortized complexity of O(1),
-* otherwise - `delete_minimal_and_insert(int)` and `insert_minimal(int)` methods are invoked; the first one has complexity of O(logn) if the subminimal buffer is empty as it requires the new element to traverse the heap starting from the root and complexity of O(1) if the buffer is non-empty; same with inserting_minimal - O(logn) if the buffer is full as it traverses the heap from the bottom to the very top and O(1) if the buffer is not full.
+* otherwise - `delete_minimal_and_insert(int)` and `insert_minimal(int)` methods are invoked; the first one has complexity of O(logn) if the subminimal buffer is empty as it requires the new element to traverse the heap starting from the root and complexity of O(1) if the buffer is non-empty; same with `insert_minimal(int)` - O(logn) if the buffer is full as it traverses the heap from the bottom to the very top and O(1) if the buffer is not full.
 
 Having a uniformly random input and not having the subminimal buffers, the first case happens in 75% of operations while the second on in 25%. As already said, the latter one can be done either in O(1) or O(logn) depending on the state of the buffers. The exact calculations depend on the distribution of the input, but assuming the uniform one we can say that every state of the buffer is equally possible and the possibility of an operation taking O(logn) time is 25% times one over the size of the buffer.
 
 In worst case only second option is used and the buffer quickly overfills (for sorted input) and it results in total of O(nlogn) operations. In an average case the calculation is much faster but still in O(nlogn) time. In the best case (having an input that keeps the heaps moreless balanced) the complexity is O(n).
 
-## Algorithm using STL multisets `Multiset_median_calculator`
+## Algorithm using AVL tree `AVL_median_calculator`
 
 ### Description
 
-While inserting elements into the multiset we can keep track of current median. It is done by storing an iterator to this element which is guaranteed to be safe by C++ standard. By examining if the newly inserted element is inserted before or after the current median we can decide to move it backwards or forwards.
+We start with the first element being inserted and we remember its node as current median. Then after each insertion we can either adjust the node holding the median or leave it as it is.
+
+If the element inserted is lower than the current median, its predecessor can be set as a new one depending on number of elements in the tree.
+
+Symmetrically, if the element is bigger or equal (this tree inserts elements to the right of the equal ones), its successor can be set as a new median.
 
 ### Complexity
 
-Multisets in the STL implementation require to have logarithmic insertion time and amortized constant time of incrementing/decrementing an iterator. As the insertion is performed every time a value is added into the set, the total complexity turnes out to be O(nlogn).
+Insertion time into the AVL tree is logarithmic. Finding successor and predecessor is done in constant time (because of keeping pointers to them). As the insertion is performed every time a value is added into the set, the total complexity turnes out to be O(nlogn).
